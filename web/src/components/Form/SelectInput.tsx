@@ -16,10 +16,9 @@ export function SelectInput({ gameValue }: SelectInputProps) {
   const [gamesInput, setGamesInput] = useState('')
   
   return (
-    <Select.Root onValueChange={setGamesInput}>
+    <Select.Root name="game" onValueChange={setGamesInput}>
           <Select.SelectTrigger
             id="game"
-            name="game"
             aria-label="Game"
             className={`bg-zinc-900 py-3 px-4 rounded text-small flex justify-between ${
               gamesInput ? "text-white" : "text-zinc-500"
