@@ -15,23 +15,16 @@ export const App: React.FC = () => {
   const { games } = useGamesContext();
   
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    dragSpeed: 3,
+    dragSpeed: 2,
     slides: {
       perView: 2,
-      spacing: 12,
+      spacing: 10,
     },
     breakpoints: {
-      "(min-width: 300px)": {
-        dragSpeed: 1,
-        slides: {
-          perView: 1,
-          spacing: 5,
-        },
-      },
       "(min-width: 425px)": {
         slides: {
           perView: 2,
-          spacing: 18,
+          spacing: 15,
         },
       },
       "(min-width: 640px)": {
