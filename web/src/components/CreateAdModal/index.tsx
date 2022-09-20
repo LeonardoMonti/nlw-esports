@@ -56,7 +56,7 @@ export const CreateAdModal: React.FC = () => {
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 bg-black/60" />
 
-      <Dialog.Content className="bg-black/70 fixed top-1/2 left-1/2 max-h-screen w-full max-w-[480px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-sm py-8 px-10 text-white shadow-lg shadow-black/25 sm:rounded-lg">
+      <Dialog.Content className="border border-purple-400 bg-black/80 fixed top-1/2 left-1/2 max-h-screen w-full max-w-[480px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-sm py-8 px-10 text-white shadow-lg shadow-black/25 sm:rounded-lg">
         <Dialog.Title className="text-xl font-black sm:text-2xl md:text-3xl">
           Publique um anúncio
         </Dialog.Title>
