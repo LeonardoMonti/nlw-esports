@@ -1,12 +1,17 @@
-import { InputHTMLAttributes } from "react";
+import { forwardRef } from "react";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
-
-export function Input(props: InputProps) {
-  return (
-    <input
-      {...props}
-      className="bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500"
-    />
-  )
+interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
+  hasError?: boolean;
 }
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ hasError, ...props }, ref) => (
+    <input
+      ref={ref}
+      {...props}
+      className={`rounded border bg-zinc-900 py-3 px-4 text-sm outline-none placeholder:text-zinc-500 focus:border-violet-500 ${
+        hasError ? "border-red-500" : "border-zinc-900"
+      }`}
+    />
+  ),
+);
