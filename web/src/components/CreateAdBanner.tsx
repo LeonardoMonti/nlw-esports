@@ -1,13 +1,12 @@
-import * as Dialog from '@radix-ui/react-dialog';
-
-import { CreateAdModal } from "./CreateAdModal";
+import * as Dialog from "@radix-ui/react-dialog";
 
 import { MagnifyingGlassPlus } from "phosphor-react";
 
-export function CreateAdBanner() {
-  return (
-    <Dialog.Root>
-    <div className="before:bg-nlw-gradient bg-[#2a2634] relative mx-auto mt-8 flex w-full max-w-[1200px] flex-col justify-between gap-4 overflow-hidden rounded-lg px-8 py-6 before:absolute before:inset-x-0 before:top-0 before:h-1 sm:flex-row sm:items-center">
+import { CreateAdModal } from "./CreateAdModal";
+
+export const CreateAdBanner: React.FC = () => (
+  <Dialog.Root>
+    <div className="before:bg-nlw-gradient bg-zinc-900 relative mx-auto mt-8 flex w-full max-w-[1200px] flex-col justify-between gap-4 overflow-hidden rounded-lg px-8 py-6 before:absolute before:inset-x-0 before:top-0 before:h-1 sm:flex-row sm:items-center">
       <div>
         <strong className="block text-lg font-black text-white sm:text-xl md:text-2xl">
           Não encontrou seu duo?
@@ -29,5 +28,4 @@ export function CreateAdBanner() {
 
     <CreateAdModal />
   </Dialog.Root>
-  )
-}
+);
