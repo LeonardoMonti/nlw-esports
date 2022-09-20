@@ -1,17 +1,28 @@
-interface GameBannereProps {
+interface GameBannerProps {
   title: string;
   bannerUrl: string;
   adsCount: number;
 }
 
-export function GameBanner(props: GameBannereProps) {
+export function GameBanner({
+  adsCount,
+  title,
+  bannerUrl,
+}: GameBannerProps) {
   return (
-    <a href="" className="relative rounded-lg overflow-hidden">
-    <img src={props.bannerUrl} alt={`image de ${props.title}`} />
+    <a 
+      href="#" 
+      className="keen-slider__slide relative overflow-hidden rounded-lg shadow-md transition-transform hover:scale-105"
+    >
+    <img src={bannerUrl} alt={`image de ${title}`} />
 
-    <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-      <strong className="fond-bold text-white block">{props.title}</strong>
-      <span className="text-zinc-300 text-sm block">{props.adsCount} anúncio(s)</span>
+    <div className="bg-game-gradient absolute inset-x-0 bottom-0 w-full px-4 pt-16 pb-4">
+      <strong className="block text-sm font-bold text-white sm:text-base">
+        {title}
+      </strong>
+      <span className="mt-1 text-xs text-zinc-300 sm:text-sm">
+        {adsCount} anúncio{adsCount !== 1 && "s"}
+      </span>
     </div>
   </a>
   )
