@@ -1,45 +1,19 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from "react";
 
-import { GameBanner } from './components/GameBanner';
-import { CreateAdBanner } from './components/CreateAdBanner';
-
-import axios from 'axios';
+import { GameBanner } from "./components/GameBanner";
+import { CreateAdBanner } from "./components/CreateAdBanner";
 
 import "keen-slider/keen-slider.min.css";
-import { KeenSliderPlugin, useKeenSlider } from "keen-slider/react";
-import './styles/main.css';
+import { useKeenSlider } from "keen-slider/react.es";
 
-import logoImg from './assets/logo-nlw-esports.svg';
-import { CaretLeft, CaretRight, CircleNotch } from 'phosphor-react';
+import logo from './assets/logo-nlw-esports.svg';
+import { CaretLeft, CaretRight, CircleNotch } from "phosphor-react";
 
-interface Game {
-  id: string;
-  title: string;
-  bannerUrl: string;
-  _count: {
-    ads: number;
-  }
-}
+import { useGamesContext } from "./contexts/GamesContext";
 
-const MutationPlugin: KeenSliderPlugin = (slider) => {
-  const observer = new MutationObserver(function (mutations) {
-    mutations.forEach(function (mutation) {
-      slider.update()
-    })
-  })
-  const config = { childList: true }
-
-  slider.on("created", () => {
-    observer.observe(slider.container, config)
-  })
-  slider.on("destroyed", () => {
-    observer.disconnect()
-  })
-}
-
-function App() {
-  const [games, setGames] = useState<Game[]>([]);
-
+export const App: React.FC = () => {
+  const { games } = useGamesContext();
+  
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     dragSpeed: 3,
     slides: {
@@ -47,15 +21,14 @@ function App() {
       spacing: 12,
     },
     breakpoints: {
-      "(min-width: 325px)": {
+      "(min-width: 300px)": {
         dragSpeed: 1,
         slides: {
           perView: 1,
-          spacing: 10,
+          spacing: 5,
         },
       },
-      "(min-width: 400px)": {
-        dragSpeed: 2,
+      "(min-width: 425px)": {
         slides: {
           perView: 2,
           spacing: 18,
@@ -86,40 +59,39 @@ function App() {
         },
       },
     },
-  }, [MutationPlugin])
+  });
 
-  useEffect(() => {
-    axios('http://localhost:3333/games')
-      .then(response => setGames(response.data))
-  },[])
-  
   return (
     <div className="mx-auto my-10 flex max-w-[1344px] flex-col items-center px-4 sm:my-14 md:my-16 xl:my-20">
-      <img src={logoImg} alt="" />
-      
+      <img src={logo} alt="" />
+
       <h1 className="mt-10 text-3xl font-black text-white sm:mt-14 md:mt-16 md:text-4xl lg:text-5xl xl:mt-20 xl:text-6xl">
-        Seu <span className="bg-nlw-gradient bg-clip-text text-transparent">duo</span> está aqui.
+        Seu{" "}
+        <span className="bg-nlw-gradient bg-clip-text text-transparent">
+          duo
+        </span>{" "}
+        está aqui.
       </h1>
 
-      {games.length !== 0 ? (
-          <Fragment>
-            <div className="mt-16 flex w-full items-center justify-between gap-6">
-              <button
-                type="button"
-                className="aspect-square w-6 text-zinc-400 hover:text-zinc-500 sm:w-8 md:w-10 lg:w-12"
-                onClick={() => {
-                  instanceRef.current?.prev();
-                }}
-              >
-                <CaretLeft
-                  width="100%"
-                  height="100%"
-                  className="transition-colors"
-                />
-              </button>
-  
-              <div className="w-full max-w-[1200px] overflow-hidden">
-                <div ref={sliderRef} className="keen-slider">
+      {games ? (
+        <Fragment>
+          <div className="mt-16 flex w-full items-center justify-between gap-6">
+            <button
+              type="button"
+              className="aspect-square w-6 text-zinc-400 hover:text-zinc-500 sm:w-8 md:w-10 lg:w-12"
+              onClick={() => {
+                instanceRef.current?.prev();
+              }}
+            >
+              <CaretLeft
+                width="100%"
+                height="100%"
+                className="transition-colors"
+              />
+            </button>
+
+            <div className="w-full max-w-[1200px] overflow-hidden">
+              <div ref={sliderRef} className="keen-slider">
                 {games.map((game) => (
                   <GameBanner
                     key={game.id}
@@ -128,39 +100,34 @@ function App() {
                     adsCount={game._count.ads}
                   />
                 ))}
-                </div>
               </div>
-  
-              <button
-                type="button"
-                className="aspect-square w-6 text-zinc-400 hover:text-zinc-500 sm:w-8 md:w-10 lg:w-12"
-                onClick={() => {
-                  instanceRef.current?.next();
-                }}
-              >
-                <CaretRight
-                  width="100%"
-                  height="100%"
-                  className="transition-colors"
-                />
-              </button>
             </div>
 
-            <CreateAdBanner />
-              
-          </Fragment>
-        ) : (
-          <div className="mt-16 flex justify-center" aria-busy="true">
-            <CircleNotch
-              size={48}
-              className="text-violet-500 motion-safe:animate-spin"
-            />
+            <button
+              type="button"
+              className="aspect-square w-6 text-zinc-400 hover:text-zinc-500 sm:w-8 md:w-10 lg:w-12"
+              onClick={() => {
+                instanceRef.current?.next();
+              }}
+            >
+              <CaretRight
+                width="100%"
+                height="100%"
+                className="transition-colors"
+              />
+            </button>
           </div>
-        )
-      }
+
+          <CreateAdBanner />
+        </Fragment>
+      ) : (
+        <div className="mt-16 flex justify-center" aria-busy="true">
+          <CircleNotch
+            size={48}
+            className="text-violet-500 motion-safe:animate-spin"
+          />
+        </div>
+      )}
     </div>
-  )
-
-}
-
-export default App
+  );
+};
