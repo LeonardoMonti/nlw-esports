@@ -1,10 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     './src/**/*.tsx',
     './index.html'
   ],
   theme: {
+    screens: {
+      'sm2x': {'min': '250px', 'max': '639px'},
+      // => @media (min-width: 250px and max-width: 639px) { ... }
+      ...defaultTheme.screens,
+    },
     fontFamily: {
       sans: ['Inter', 'sans-serif'],
     },

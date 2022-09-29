@@ -15,7 +15,6 @@ export const App: React.FC = () => {
   const { games } = useGamesContext();
   
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    dragSpeed: 2,
     slides: {
       perView: 2,
       spacing: 10,
@@ -68,10 +67,10 @@ export const App: React.FC = () => {
 
       {games ? (
         <Fragment>
-          <div className="mt-16 flex w-full items-center justify-between gap-6">
+          <div className="mt-16 flex w-full items-center justify-between gap-6 sm2x:mt-3">
             <button
               type="button"
-              className="aspect-square w-6 text-zinc-400 hover:text-zinc-500 sm:w-8 md:w-10 lg:w-12"
+              className="aspect-square w-6 text-zinc-400 hover:text-zinc-500 sm:w-8 md:w-10 lg:w-12 sm2x:hidden"
               onClick={() => {
                 instanceRef.current?.prev();
               }}
@@ -98,7 +97,7 @@ export const App: React.FC = () => {
 
             <button
               type="button"
-              className="aspect-square w-6 text-zinc-400 hover:text-zinc-500 sm:w-8 md:w-10 lg:w-12"
+              className="aspect-square w-6 text-zinc-400 hover:text-zinc-500 sm:w-8 md:w-10 lg:w-12 sm2x:hidden"
               onClick={() => {
                 instanceRef.current?.next();
               }}

@@ -49,7 +49,7 @@ export const Select = <T extends FieldValues = FieldValues>({
       </SelectPrimitive.Trigger>
 
       <SelectPrimitive.Portal>
-        <SelectPrimitive.Content className="absolute top-[3.25rem] right-0 w-[400px] rounded shadow-lg shadow-black/25">
+        <SelectPrimitive.Content className="absolute top-[3.25rem] right-0 w-[400px] rounded shadow-lg shadow-black/25 sm2x:w-[290px]">
           <SelectPrimitive.ScrollUpButton>
             <CaretUp />
           </SelectPrimitive.ScrollUpButton>
