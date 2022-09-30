@@ -4,8 +4,13 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
+    "start": "node dist/server.js",
     "build": "tsc",
-    "dev": "tsnd --exit-child src/server.ts"
+    "dev": "tsnd --exit-child --transpile-only src/server.ts",
+    "seed": "tsnd --transpile-only ./prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
