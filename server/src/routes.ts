@@ -10,6 +10,27 @@ import { ValidationError } from "yup";
 
 export const routes = express.Router();
 
+// create game
+routes.post("/games", async (request, response, next) => {
+  const {title , bannerUrl} = request.body;
+  try {
+    const games = await prisma.game.create({
+      data: {
+        title,
+        bannerUrl
+      }
+    });
+
+    return response.json({
+      ok: true,
+      games,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// list all games
 routes.get("/games", async (_request, response, next) => {
   try {
     const games = await prisma.game.findMany({
